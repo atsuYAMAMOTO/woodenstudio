@@ -1,0 +1,64 @@
+@use 'variables' as *;
+@use 'mixin' as *;
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    color: $textColor1;
+    font-family: $quick, $maru, $mont, serif;
+}
+
+h2{
+    font-size: 26px;
+    line-height: 2.13em;
+    letter-spacing: 0.2em;
+}
+
+h3{
+    font-size: 24px;
+    line-height: 2.13em;
+    letter-spacing: 0.2em;
+}
+
+p{
+    font-size: 16px;
+    line-height: 2.13em;
+    letter-spacing: 0.2em;
+}
+
+li{
+    list-style: none;
+    letter-spacing: 0.2em;
+}
+
+.section{
+    padding: 200px 0;
+    @include mq(sp){
+        padding: 96px 24px;
+    }
+
+}
+
+.contents-container{
+    max-width: 1600px;
+    margin: 0 auto;
+    @include mq(sp){
+        padding: 0 16px;
+    }
+}
+
+.pc-none{
+    display: none;
+    @include mq(sp){
+        display: block;
+    }
+}
+
+.sp-none{
+    display: none;
+    @include mq(sp){
+        display: none;
+    }
+}

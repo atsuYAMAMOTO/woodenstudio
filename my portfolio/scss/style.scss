@@ -1,0 +1,333 @@
+// コンパイルに必要なパーシャルファイルを読み込み
+@use 'variables' as *;
+@use 'common' as *;
+@use 'modules' as *;
+@use 'header';
+@use 'footer';
+@use 'mixin' as *;
+
+
+
+// ヒーローエリア
+    .hero {
+        width: 100%;
+        height: 100dvh;
+        background: linear-gradient(
+          90deg,
+          $mainColor1 0%,
+          $mainColor1 50%,
+          $mainColor3 50%,
+          $mainColor3 100%
+        );
+        background-size: cover;
+      
+        &__img {
+          position: absolute;
+          left: 50%;          // 画面中央に揃える
+          top: 50%;           // 画面中央に揃える
+          transform: translate(-50%, -50%); // 中央揃えを実現
+          z-index: 10000;
+          width: 364px;       // 元のPC版の大きさ
+          height: auto;       // アスペクト比を維持
+          @include mq(sp){
+            width: 100px;
+          }
+        }
+      }
+
+.catchcopy{
+    font-size: 30px;
+    color: $accentColor;
+    position: absolute;
+    left: calc((100% - 1200px) / 2);
+    top: 190px;
+    @include mq(sp){
+        font-size: 24px;
+        margin-top: -80px;
+        left:10%;
+    }
+}
+
+// ABOUT
+.about {
+    padding: 80px 0;
+    background-color: #f9f9f9;
+
+    .contents-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        max-width: 1200px;
+        margin: 0 auto;
+        @include mq(sp){
+            flex-flow: column-reverse;
+        }
+
+
+        .column-left {
+            flex: 1;
+            max-width: 600px;
+            @include mq(sp){
+                width: 100%;
+            }
+
+            .column-left-picture-frame {
+                width: 100%;
+                height: auto;
+                overflow: hidden; // フレーム内に収める
+                // border-radius: 8px; // 角を丸く
+                // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // 影を追加
+
+                .column-left__photo {
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                    object-fit: cover; // 画像をフレーム内に収める
+                    object-position: center; // 画像の中央を表示
+                }
+            }
+        }
+
+        .column-right {
+            flex: 1;
+            max-width: 600px;
+            @include mq(sp){
+                width: 100%;
+                height: calc((100vw - 24px) + ((50vw - 4px) / 2));
+            }
+
+
+            .section-head {
+                &--glay {
+                    margin-bottom: 16px;
+
+                }
+            }
+        }
+    }
+}
+
+// WORKS
+.works{
+    background-color: $baseColor2;
+    &-items{
+        display: flex;
+        justify-content: center;
+        height: 400px;
+        column-gap: 16px;
+        margin-bottom: 96px;
+        @include mq(sp){
+            column-gap: 8px;
+            width: calc(100% + 24px);
+            margin-bottom: 48px;
+            overflow-x: scroll;
+            justify-content: flex-start;
+        }
+    }
+
+    &-article{
+        width: 25%;
+        @include mq(sp){
+                flex-shrink: 0;
+                width: 58vw;
+            }
+            
+            &__date{
+                margin-bottom: 16px;
+                font-size: 14px;
+                @include mq(sp){
+                        margin-bottom: 8px;
+                        font-size: 10px;
+                    }
+            }
+                
+            &__title{
+                margin-bottom: 8px;
+                font-size: 18px;
+                font-weight: 500;
+                    @include mq(sp){
+                            margin-bottom: 4px;
+                            font-size: 14px;
+                        }
+                    }
+                    
+        .picture-frame{
+            width: 100%;
+            height: auto;
+            aspect-ratio: 4/3;
+            margin-bottom: 16px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 8px; // 角を丸く
+            // @include mq(sp){
+            //     margin-bottom: 8px;
+            // }
+            }
+            
+            &__img{
+                width: 100%;
+                height: auto;
+                aspect-ratio: 4/3;
+                object-fit: cover;
+                transition: transform .5s linear;
+                
+                &:hover{
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+    .btn{
+        margin: 0 auto;
+    }
+}
+
+// PROFILE
+.profile {
+    padding: 80px 0;
+    background-color: $baseColor1;
+
+    .contents-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        max-width: 1200px;
+        margin: 0 auto;
+        flex-direction: row;  
+        position: relative;      
+        @include mq(sp) {
+            flex-direction: column-reverse; // SPサイズでは縦並び（frameが上）
+            align-items: center; // 中央揃え
+        }
+
+        
+        .profile-text {
+            flex: 1;
+            max-width: 600px;
+
+            .section-head {
+                &--glay {
+                    margin-bottom: 16px;
+
+                }
+            }
+        }
+
+        .profile-frame {
+            flex: 1;
+            position: absolute;
+            right: calc(((100% - 1400px) / 2) + 100px);
+            top: -160px;
+            width: 560px;
+            height: auto;
+            overflow: hidden; // フレーム内に収める
+            border-radius: 8px; // 角を丸く
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // 影を追加
+            @include mq(sp) {
+                position: static; // SPでは通常のフローに戻す
+                top: auto;
+                right: auto;
+                width: 240px; // サイズ調整
+                margin-bottom: 16px; // 下に余白を追加
+            }
+
+            .profile__img {
+                width: 100%;
+                height: auto;
+                display: block;
+                object-fit: cover; // 画像をフレーム内に収める
+                object-position: center; // 画像の中央を表示
+            }
+        }
+    }
+}
+
+// CONTACT
+.contact{
+    &-top{
+        position: relative;
+        width: 1080px;
+        height: 80px;
+        background-color: $mainColor2;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px 10px 0 0;
+        @include mq(sp){
+            width: auto;
+            height: 56px;
+        }
+    }
+    
+    .section-head{
+        margin: 0 auto;
+        &__en{
+            margin: 0 auto;
+        }
+    }
+}
+
+.form{
+    background-color: $baseColor2;
+    padding-bottom: 32px;
+    // margin-bottom: 10%;
+
+    .contact-bottom {
+        position: relative;
+        width: 1080px;
+        height: 400px;
+        background-color: $mainColor2;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0 0 10px 10px;
+        @include mq(sp){
+            width: auto;
+            height: 240px;
+        }
+        
+    
+        li {
+            background-color: $baseColor1;
+            display: flex; /* Flexboxを使用 */
+            flex-direction: column; /* 子要素を縦並びにする */
+            align-items: center; /* 水平方向の中央揃え */
+            justify-content: center; /* 垂直方向の中央揃え */
+            width: 300px; /* 必要ならサイズを指定 */
+            height: 300px; /* 必要ならサイズを指定 */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            @include mq(sp){
+                width: 240px;
+                height: 160px;
+            }
+        }
+    
+        .contact-form {
+            display: flex;
+            flex-direction: column; /* アイコンとメッセージを縦並び */
+            align-items: center; /* 中央揃え */
+            justify-content: center;
+            text-align: center; /* テキストを中央揃え */
+            font-size: 24px;
+            color: $textColor1; /* 必要に応じて調整 */
+        }
+    
+        .fa-regular.fa-envelope {
+            font-size: 36px; /* アイコンサイズ */
+            margin-bottom: 10px; /* メッセージとの間に余白 */
+            color: $textColor3; /* 必要に応じて色を調整 */
+        }
+    
+        .contact__message {
+            font-size: 16px; /* 必要に応じて調整 */
+            line-height: 1.5;
+        }
+
+    }
+}
